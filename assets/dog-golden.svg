@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="Illustrated golden retriever">
+  <circle cx="80" cy="80" r="80" fill="#FBEAD0"/>
+  <ellipse cx="40" cy="86" rx="17" ry="32" fill="#E0A653" transform="rotate(15 40 86)"/>
+  <ellipse cx="120" cy="86" rx="17" ry="32" fill="#E0A653" transform="rotate(-15 120 86)"/>
+  <circle cx="80" cy="80" r="45" fill="#F0BE6E"/>
+  <ellipse cx="80" cy="97" rx="27" ry="23" fill="#FFF6E3"/>
+  <path d="M58 74c2-5 8-7 13-5M102 74c-2-5-8-7-13-5" stroke="#2A2E28" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <ellipse cx="80" cy="93" rx="9" ry="7" fill="#2A2E28"/>
+  <path d="M80 100v6m0 0c-3 5-9 5-12 1m12-1c3 5 9 5 12 1" stroke="#2A2E28" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M74 108c2 6 10 6 12 0l-2 10c-1 4-7 4-8 0z" fill="#F4795B"/>
+</svg>

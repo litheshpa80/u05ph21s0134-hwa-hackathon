@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" role="img" aria-label="Hidden Compartments puzzle cartridge">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="36%" r="72%">
+      <stop offset="0%" stop-color="#F4ECDB"/>
+      <stop offset="100%" stop-color="#E9DBC2"/>
+    </radialGradient>
+    <linearGradient id="tile" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFFBF0"/>
+      <stop offset="100%" stop-color="#F2E5CC"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="640" rx="44" fill="url(#bg)"/>
+  <ellipse cx="320" cy="566" rx="210" ry="24" fill="#1E3A2B" opacity=".15"/>
+  <rect x="120" y="110" width="400" height="400" rx="64" fill="#FFB937"/>
+  <rect x="134" y="124" width="372" height="372" rx="54" fill="url(#tile)"/>
+  <rect x="296" y="98" width="48" height="24" rx="10" fill="#2C5243"/>
+  <rect x="296" y="498" width="48" height="24" rx="10" fill="#2C5243"/>
+  <rect x="98" y="292" width="24" height="48" rx="10" fill="#2C5243"/>
+  <rect x="518" y="292" width="24" height="48" rx="10" fill="#2C5243"/>
+  <!-- drawer cabinet -->
+  <rect x="188" y="212" width="264" height="216" rx="26" fill="#2C5243"/>
+  <!-- drawer 1 -->
+  <rect x="206" y="230" width="228" height="52" rx="15" fill="#FFF7E8"/>
+  <rect x="286" y="248" width="68" height="16" rx="8" fill="#2A2E28"/>
+  <!-- drawer 2 pulled out -->
+  <rect x="238" y="294" width="228" height="52" rx="15" fill="#FF6B2C"/>
+  <rect x="254" y="306" width="196" height="28" rx="10" fill="#D94812"/>
+  <circle cx="300" cy="320" r="9" fill="#8A5A32"/>
+  <circle cx="330" cy="320" r="9" fill="#8A5A32"/>
+  <rect x="316" y="302" width="68" height="16" rx="8" fill="#2A2E28"/>
+  <!-- drawer 3 -->
+  <rect x="206" y="358" width="228" height="52" rx="15" fill="#FFF7E8"/>
+  <rect x="286" y="376" width="68" height="16" rx="8" fill="#2A2E28"/>
+  <!-- hidden slot -->
+  <rect x="240" y="196" width="60" height="14" rx="7" fill="#1E3A2B"/>
+  <path d="M474 236l6 15 15 6-15 6-6 15-6-15-15-6 15-6z" fill="#FF6B2C" opacity=".7"/>
+  <g>
+    <circle cx="290" cy="548" r="7" fill="#FF6B2C"/>
+    <circle cx="312" cy="548" r="7" fill="#FF6B2C"/>
+    <circle cx="334" cy="548" r="7" fill="#FF6B2C"/>
+    <circle cx="356" cy="548" r="7" fill="none" stroke="#C9B896" stroke-width="2.4"/>
+  </g>
+</svg>

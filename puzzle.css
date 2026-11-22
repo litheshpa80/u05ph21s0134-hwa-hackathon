@@ -1,0 +1,579 @@
+/* ============================================================
+   QuestBox — "Can Your Pup Crack It?" mini puzzle game
+   Uses the global design tokens defined in styles.css.
+   All selectors are namespaced qp- / .qp- to avoid collisions.
+   ============================================================ */
+
+.qp-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+/* ---------------- Cartridge (puzzle board) ---------------- */
+.qp-cartridge {
+  position: relative;
+  padding: 24px;
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(circle at 14% 8%, rgba(255, 185, 55, 0.28), transparent 40%),
+    radial-gradient(circle at 88% 92%, rgba(255, 107, 44, 0.16), transparent 44%),
+    linear-gradient(160deg, #f8f1e0, #efe3cb);
+  border: 1px solid #e3cfa4;
+  box-shadow: var(--shadow-lg), inset 0 2px 0 rgba(255, 255, 255, 0.65);
+}
+
+.qp-cartridge-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.qp-cartridge-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 13px;
+  border-radius: 999px;
+  background: rgba(30, 58, 43, 0.92);
+  color: var(--cream-text);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.qp-cartridge-label::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--yellow);
+}
+
+.qp-cartridge-note {
+  color: var(--muted);
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* ---------------- Gates ---------------- */
+.qp-gates {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.qp-gate {
+  position: relative;
+  min-height: 150px;
+  padding: 0;
+  border: 0;
+  border-radius: 18px;
+  background: transparent;
+  overflow: hidden;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* well (behind the door) */
+.qp-well {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 18px;
+  background: linear-gradient(160deg, var(--forest), #16291f);
+  box-shadow: inset 0 4px 14px rgba(0, 0, 0, 0.45);
+}
+
+.qp-well svg {
+  width: 30px;
+  color: rgba(255, 247, 232, 0.28);
+}
+
+.qp-well::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  background: radial-gradient(circle at 50% 55%, rgba(255, 185, 55, 0.55), transparent 62%);
+  opacity: 0;
+}
+
+.qp-gate.is-open .qp-well::after {
+  animation: qp-glow 1.2s var(--ease);
+}
+
+@keyframes qp-glow {
+  0% { opacity: 0; }
+  35% { opacity: 1; }
+  100% { opacity: 0.22; }
+}
+
+/* sliding door */
+.qp-door {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 14px;
+  border-radius: 18px;
+  background: linear-gradient(165deg, var(--paper), #f3ead6);
+  border: 1px solid var(--line);
+  box-shadow: inset 0 -3px 0 rgba(30, 58, 43, 0.06);
+  transform: translateX(var(--qp-slide, 0%));
+  transition: transform 0.45s var(--ease), box-shadow 0.3s var(--ease);
+}
+
+.qp-door svg {
+  width: 34px;
+  color: #d9c8a5;
+}
+
+.qp-knob {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: grid;
+  place-items: center;
+  gap: 3px;
+  width: 16px;
+  height: 54%;
+  padding: 5px 0;
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--orange-soft), var(--orange));
+  box-shadow: 0 4px 10px rgba(244, 88, 28, 0.35);
+}
+
+.qp-knob i {
+  width: 7px;
+  height: 2px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.75);
+}
+
+/* hover: door nudges open (pointer devices only) */
+@media (hover: hover) {
+  .qp-gate:hover .qp-door {
+    --qp-slide: -12%;
+    box-shadow: 0 10px 24px rgba(30, 58, 43, 0.18), inset 0 -3px 0 rgba(30, 58, 43, 0.06);
+  }
+}
+
+.qp-gate:focus-visible {
+  outline: 3px solid rgba(244, 88, 28, 0.45);
+  outline-offset: 3px;
+}
+
+/* demo peek + open states win over hover (declared after) */
+.qp-gate.is-peek .qp-door {
+  --qp-slide: -34%;
+  box-shadow: 0 0 0 3px rgba(255, 185, 55, 0.65), 0 12px 26px rgba(30, 58, 43, 0.2);
+}
+
+.qp-gate.is-open .qp-door {
+  --qp-slide: -108%;
+}
+
+.qp-gate.is-open {
+  cursor: default;
+}
+
+/* wrong-gate shake */
+.qp-gate.is-wrong {
+  animation: qp-shake 0.45s var(--ease);
+}
+
+@keyframes qp-shake {
+  20% { transform: translateX(-5px) rotate(-1.2deg); }
+  45% { transform: translateX(5px) rotate(1.2deg); }
+  70% { transform: translateX(-3px); }
+  90% { transform: translateX(2px); }
+}
+
+.qp-mount.is-demo .qp-gate,
+.qp-mount.is-demo .qp-gate:hover {
+  cursor: progress;
+}
+
+/* ---------------- Scent trail connector ---------------- */
+.qp-trail {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 16px 6px;
+}
+
+.qp-trail span {
+  flex: 1;
+  border-top: 2px dashed #d9c8a5;
+}
+
+.qp-trail svg {
+  width: 22px;
+  color: #c9b48c;
+  transform: rotate(-18deg);
+}
+
+/* ---------------- Vault ---------------- */
+.qp-vault {
+  position: relative;
+  height: 132px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.qp-vault-cavity {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(160deg, var(--forest), #16291f);
+}
+
+.qp-vault-cavity::before {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  border: 2px dashed rgba(255, 247, 232, 0.22);
+  border-radius: 14px;
+}
+
+.qp-treat {
+  position: relative;
+  z-index: 2;
+  display: block;
+  width: 84px;
+  color: var(--orange);
+  transform: rotate(-12deg);
+  filter: drop-shadow(0 6px 14px rgba(244, 88, 28, 0.45));
+}
+
+.qp-vault.is-open .qp-treat {
+  animation: qp-treat-pop 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s backwards;
+}
+
+@keyframes qp-treat-pop {
+  from { transform: scale(0.2) rotate(-50deg); }
+  to { transform: scale(1.12) rotate(-12deg); }
+}
+
+.qp-confetti {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.qp-confetti span {
+  position: absolute;
+  top: -14px;
+  border-radius: 2px;
+  animation: qp-fall ease-in forwards;
+}
+
+@keyframes qp-fall {
+  to {
+    transform: translateY(190px) rotate(640deg);
+    opacity: 0;
+  }
+}
+
+.qp-vault-door {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  background: linear-gradient(165deg, var(--paper), #f3ead6);
+  border-radius: 20px;
+  border: 1px solid var(--line);
+  transform: translateY(var(--qp-vslide, 0%));
+  transition: transform 0.7s var(--ease);
+}
+
+.qp-vault.is-open .qp-vault-door {
+  --qp-vslide: -102%;
+}
+
+.qp-vault-grip {
+  display: grid;
+  gap: 3px;
+  padding: 9px 6px;
+  border-radius: 10px;
+  background: var(--sand);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+.qp-vault-grip i {
+  width: 18px;
+  height: 3px;
+  border-radius: 2px;
+  background: #c9b48c;
+}
+
+.qp-vault-text {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* ---------------- HUD ---------------- */
+.qp-hud {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 16px;
+  margin-top: 20px;
+}
+
+.qp-progress {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--body);
+  font-size: 13.5px;
+  font-weight: 800;
+}
+
+.qp-pips {
+  display: inline-flex;
+  gap: 6px;
+}
+
+.qp-pips i {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--sand);
+  box-shadow: inset 0 0 0 1px var(--line);
+  transition: background 0.3s var(--ease), transform 0.3s var(--ease);
+}
+
+.qp-pips i.on {
+  background: linear-gradient(135deg, var(--orange-soft), var(--orange));
+  box-shadow: 0 3px 8px rgba(244, 88, 28, 0.35);
+  transform: scale(1.12);
+}
+
+.qp-stats {
+  display: inline-flex;
+  gap: 8px;
+}
+
+.qp-stat {
+  padding: 7px 13px;
+  border-radius: 999px;
+  background: rgba(255, 253, 246, 0.85);
+  border: 1px solid var(--line);
+  color: var(--forest);
+  font-size: 12.5px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------------- Message + actions ---------------- */
+.qp-message {
+  min-height: 30px;
+  margin-top: 14px;
+  color: var(--body);
+  font-size: 15px;
+  font-weight: 700;
+  transition: color 0.3s var(--ease);
+}
+
+.qp-message.is-hint {
+  color: var(--orange);
+}
+
+.qp-message.is-win {
+  color: var(--forest);
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  animation: qp-msg-pop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes qp-msg-pop {
+  from { transform: scale(0.85); opacity: 0; }
+}
+
+.qp-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.qp-actions .button[hidden] {
+  display: none;
+}
+
+.qp-actions [data-qp="restart"]:not([hidden]) {
+  animation: qp-msg-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.qp-actions .button:focus-visible {
+  outline: 3px solid rgba(244, 88, 28, 0.45);
+  outline-offset: 2px;
+}
+
+/* ---------------- Aside: how to play ---------------- */
+.qp-aside {
+  display: grid;
+  gap: 14px;
+}
+
+.qp-aside-card {
+  padding: 26px 26px 24px;
+  border-radius: var(--radius-lg);
+  background: var(--paper);
+  border: 1px solid var(--line-soft);
+  box-shadow: var(--shadow-sm);
+}
+
+.qp-aside-card h3 {
+  font-size: 1.3rem;
+  margin-bottom: 16px;
+}
+
+.qp-steps {
+  list-style: none;
+  counter-reset: qp-step;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 14px;
+}
+
+.qp-steps li {
+  counter-increment: qp-step;
+  position: relative;
+  padding-left: 46px;
+  font-size: 14.5px;
+  color: var(--body);
+}
+
+.qp-steps li::before {
+  content: counter(qp-step);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--orange-soft), var(--orange));
+  color: #fff;
+  font-family: "Fraunces", serif;
+  font-size: 1rem;
+  font-weight: 700;
+  box-shadow: 0 6px 14px rgba(244, 88, 28, 0.28);
+}
+
+.qp-steps strong {
+  color: var(--forest);
+}
+
+.qp-tip {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+  padding: 14px 16px;
+  border-radius: var(--radius-md);
+  background: var(--sage);
+  color: var(--pine);
+  font-size: 13.5px;
+  font-weight: 700;
+}
+
+.qp-tip span:first-child {
+  flex-shrink: 0;
+}
+
+.qp-tip span + span {
+  flex: 1;
+  min-width: 0;
+}
+
+.qp-perks {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* ---------------- Responsive ---------------- */
+@media (min-width: 940px) {
+  .qp-layout {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    gap: 34px;
+  }
+}
+
+@media (max-width: 560px) {
+  .qp-cartridge {
+    padding: 14px;
+  }
+
+  .qp-cartridge-top {
+    margin-bottom: 12px;
+  }
+
+  .qp-gates {
+    gap: 8px;
+  }
+
+  .qp-gate {
+    min-height: 116px;
+    border-radius: 14px;
+  }
+
+  .qp-well,
+  .qp-door {
+    border-radius: 14px;
+  }
+
+  .qp-knob {
+    left: 8px;
+    width: 13px;
+  }
+
+  .qp-door svg {
+    width: 24px;
+  }
+
+  .qp-vault {
+    height: 112px;
+  }
+
+  .qp-treat {
+    width: 64px;
+  }
+
+  .qp-message.is-win {
+    font-size: 1.12rem;
+  }
+
+  .qp-actions .button {
+    flex: 1;
+  }
+}

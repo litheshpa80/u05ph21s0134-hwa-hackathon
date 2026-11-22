@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" role="img" aria-label="Rotating Wheel puzzle cartridge">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="36%" r="72%">
+      <stop offset="0%" stop-color="#F4ECDB"/>
+      <stop offset="100%" stop-color="#E9DBC2"/>
+    </radialGradient>
+    <linearGradient id="tile" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFFBF0"/>
+      <stop offset="100%" stop-color="#F2E5CC"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="640" rx="44" fill="url(#bg)"/>
+  <ellipse cx="320" cy="566" rx="210" ry="24" fill="#1E3A2B" opacity=".15"/>
+  <rect x="120" y="110" width="400" height="400" rx="64" fill="#FF6B2C"/>
+  <rect x="134" y="124" width="372" height="372" rx="54" fill="url(#tile)"/>
+  <rect x="296" y="98" width="48" height="24" rx="10" fill="#2C5243"/>
+  <rect x="296" y="498" width="48" height="24" rx="10" fill="#2C5243"/>
+  <rect x="98" y="292" width="24" height="48" rx="10" fill="#2C5243"/>
+  <rect x="518" y="292" width="24" height="48" rx="10" fill="#2C5243"/>
+  <!-- wheel -->
+  <circle cx="320" cy="316" r="118" fill="#2C5243"/>
+  <circle cx="320" cy="316" r="96" fill="#FFF7E8"/>
+  <g stroke="#2C5243" stroke-width="16" stroke-linecap="round">
+    <line x1="320" y1="316" x2="320" y2="222"/>
+    <line x1="320" y1="316" x2="404" y2="364"/>
+    <line x1="320" y1="316" x2="236" y2="364"/>
+  </g>
+  <circle cx="320" cy="316" r="34" fill="#FF6B2C"/>
+  <circle cx="320" cy="316" r="13" fill="#FFF7E8"/>
+  <!-- treat wells on ring -->
+  <circle cx="320" cy="316" r="0" fill="none"/>
+  <circle cx="320" cy="222" r="17" fill="#FFB937"/>
+  <circle cx="320" cy="222" r="7" fill="#8A5A32"/>
+  <circle cx="404" cy="364" r="17" fill="#FFB937"/>
+  <circle cx="404" cy="364" r="7" fill="#8A5A32"/>
+  <circle cx="236" cy="364" r="17" fill="#FFB937"/>
+  <circle cx="236" cy="364" r="7" fill="#8A5A32"/>
+  <!-- rotating cover knob -->
+  <circle cx="386" cy="262" r="20" fill="#2A2E28"/>
+  <circle cx="386" cy="262" r="8" fill="#FFB937"/>
+  <!-- rotation arrows -->
+  <path d="M204 250 a130 130 0 0 1 60 -52" stroke="#FF6B2C" stroke-width="6" fill="none" stroke-linecap="round" stroke-dasharray="1 14"/>
+  <path d="M256 186l14 2-4 13" stroke="#FF6B2C" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M492 190l6 15 15 6-15 6-6 15-6-15-15-6 15-6z" fill="#FFB937"/>
+  <g>
+    <circle cx="290" cy="548" r="7" fill="#FF6B2C"/>
+    <circle cx="312" cy="548" r="7" fill="#FF6B2C"/>
+    <circle cx="334" cy="548" r="7" fill="#FF6B2C"/>
+    <circle cx="356" cy="548" r="7" fill="none" stroke="#C9B896" stroke-width="2.4"/>
+  </g>
+</svg>
